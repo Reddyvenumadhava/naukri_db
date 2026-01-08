@@ -1,0 +1,66 @@
+CREATE SCHEMA IF NOT EXISTS meta_data;
+CREATE SCHEMA IF NOT EXISTS user_data;
+USE meta_data;
+
+CREATE TABLE countries (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  country_code VARCHAR(10) UNIQUE NOT NULL,
+  country_name VARCHAR(100) NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE states (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  country_id INT NOT NULL,
+  state_name VARCHAR(100) NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE',
+  FOREIGN KEY (country_id) REFERENCES countries(row_id)
+);
+
+CREATE TABLE cities (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  state_id INT NOT NULL,
+  city_name VARCHAR(100) NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE',
+  FOREIGN KEY (state_id) REFERENCES states(row_id)
+);
+
+CREATE TABLE languages (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  language_name VARCHAR(100) UNIQUE NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE skills (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  skill_name VARCHAR(100) UNIQUE NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE areas_of_interest (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  interest_name VARCHAR(150) UNIQUE NOT NULL,
+  status ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE colleges (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  college_name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE courses (
+  row_id INT AUTO_INCREMENT PRIMARY KEY,
+  course_name VARCHAR(100) NOT NULL,
+  stream VARCHAR(100),
+  UNIQUE(course_name, stream)
+);
+
+
+
+
+
+
+
+
+
+
